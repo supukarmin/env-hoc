@@ -11,32 +11,30 @@ Provides an **universal** [HOC (higher-order component)](https://reactjs.org/doc
   * Console.warns() while process.ENV.NODE_ENV === 'development', if server props !== client props
   * Possibility to only use props from the HTTP request
 
+![this.props.env](docs/res/envProps.png?raw=true "this.props.env")
+
+***Feature requests for additional properties are welcomed***
+
 # Install
-```
+You can install it directly from [npm](https://www.npmjs.com/package/env-hoc):
+```shell
 npm i env-hoc
+```
+or, if you are using yarn:
+```shell
+yarn add env-hoc
 ```
 
 # Usage
-```js
-//default options:
-{
-  trustProxy: true,
-  cookieParser: {}, //will be passed to cookie.parse from the cookie package
-  debug: process.env.NODE_ENV === 'development',
-  useServerProps: false, //if true it uses the props from server-rendering only
-  /*
-  useServerProps can also be an object and works then only on the specified values
-  useServerProps: {
-    cookies: true,
-  },
-  */
-}
-```
 
+## with [ES7 decorators](https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841)
+
+Just import the package and add it as a decorator to every page where you want to have access to the `env` object.
 ```js
 import React from 'react';
 import withEnv from 'env-hoc';
 
+@withEnv
 class Environment extends React.Component {
   static getInitialProps(args) {
     console.log('args.env:', args.env);
@@ -45,8 +43,8 @@ class Environment extends React.Component {
   render() {
     console.log('this.props:', this.props.env);
     return (
-      <div className="page">
-        <h1>About</h1>
+      <div>
+        <h1>Environment</h1>
         <pre>userAgent: {this.props.env.userAgent}</pre>
         <pre>language: {this.props.env.language}</pre>
         <pre>languages: {this.props.env.languages.join(', ')}</pre>
@@ -57,33 +55,11 @@ class Environment extends React.Component {
   }
 }
 
-export default withEnv(Environment);
-
-// Or if you like decorators:
-@withEnv
-export default class Environment extends React.Component {}
-
-//example with options:
-export default withEnv({
-  trustProxy: false,
-})(Environment);
-
-@withEnv({
-  trustProxy: false,
-})
-export default class Environment extends React.Component {}
-
-//or configure it only once somewhere: configuredWithEnv.js
-export default withEnv({
-  trustProxy: false,
-});
-
-import configuredWithEnv from './configuredWithEnv';
-
-@configuredWithEnv
-export default class Environment extends React.Component {}
-
-/* CONSOLE:
+export default Environment;
+```
+### console output
+```
+/* CONSOLE OUTPUT:
 args.env: { userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
   language: 'de-DE',
   languages: [ 'de-DE', 'de', 'en-US', 'en', 'bs', 'hr' ],
@@ -97,7 +73,96 @@ this.props: { userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KH
 */
 ```
 
-## Some hints
+## without fancy ES7
+
+Just import the package and wrap it around every page where you want to have access to the `env` object.
+```js
+import React from 'react';
+import withEnv from 'env-hoc';
+
+class Environment extends React.Component {
+  static getInitialProps(args) {
+    console.log('args.env:', args.env);
+  }
+
+  render() {
+    console.log('this.props:', this.props.env);
+    return (
+      <div>
+        <h1>Environment</h1>
+        <pre>userAgent: {this.props.env.userAgent}</pre>
+        <pre>language: {this.props.env.language}</pre>
+        <pre>languages: {this.props.env.languages.join(', ')}</pre>
+        <pre>ipAddress: {this.props.env.ipAddress}</pre>
+        <pre>cookies: {JSON.stringify(this.props.env.cookies)}</pre>
+      </div>
+    );
+  }
+}
+
+export default withEnv(Environment);
+```
+
+## Example with options
+
+```js
+//without ES7 decorator
+withEnv({
+  trustProxy: false,
+})(Environment);
+
+//with ES7 decorator
+@withEnv({
+  trustProxy: false,
+})
+class Environment extends React.Component {}
+```
+
+### onetime configuration
+You can also configure withEnv once in a file and then import it from there when needed.
+```js
+
+//file: configuredWithEnv.js
+export default withEnv({
+  trustProxy: false,
+});
+
+//file: page.js
+import configuredWithEnv from './configuredWithEnv';
+
+//with ES7 decorator
+@configuredWithEnv
+export default class Environment extends React.Component {}
+
+//without ES7 decorator
+configuredWithEnv(class Environment extends React.Component {})
+```
+
+## Configuration / Options
+* **trustProxy:** (boolean) If true, then it trusts proxy HTTP headers.
+* **cookieParser:** (object) Is beeing passed to the parse function of the [cookie package](https://github.com/jshttp/cookie).
+* **debug:** (boolean) If true, then it console.warns() you about different client / server behaviour.
+* **useServerProps:** (boolean/object) If true, only the props from server-rendering are used. You can also pass an object with keys matching the key from this.props.env and enable usage of server props only partially. For example:
+```js
+withEnv({
+    useServerProps: {
+      cookies: true,
+      languages: true,
+    },
+});
+```
+
+### Default options
+```js
+withEnv({
+    trustProxy: true,
+    cookieParser: {},
+    debug: process.env.NODE_ENV === 'development',
+    useServerProps: false,
+});
+```
+
+### Some hints
 If you want to be a good programmer or support very old browsers, you should still check if a property is available, if some data isn't available, then it will be always for:
 * all properties except cookies: `null`
 * cookies: `{}`
