@@ -27,7 +27,7 @@ yarn add env-hoc
 
 # Usage
 
-## with [decorators](https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841)
+## with [decorators](https://www.sitepoint.com/javascript-decorators-what-they-are/)
 
 Just import the package and add it as a decorator to every page where you want to have access to the `env` object.
 ```js
@@ -76,7 +76,7 @@ this.props: { userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KH
 */
 ```
 
-## without fancy ES7
+## without decorators
 
 Just import the package and wrap it around every page where you want to have access to the `env` object.
 ```js
@@ -110,12 +110,12 @@ export default withEnv(Environment);
 ## Example with options
 
 ```js
-//without ES7 decorator
+//without decorator
 withEnv({
   trustProxy: false,
 })(Environment);
 
-//with ES7 decorator
+//with decorator
 @withEnv({
   trustProxy: false,
 })
@@ -134,11 +134,11 @@ export default withEnv({
 //file: page.js
 import configuredWithEnv from './configuredWithEnv';
 
-//with ES7 decorator
+//with decorator
 @configuredWithEnv
 export default class Environment extends React.Component {}
 
-//without ES7 decorator
+//without decorator
 configuredWithEnv(class Environment extends React.Component {})
 ```
 
