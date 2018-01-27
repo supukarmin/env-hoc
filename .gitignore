@@ -1,0 +1,13 @@
+# IDE & Editor
+.idea/
+.directory
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependency
+node_modules/
+
+# Test
+coverage/
