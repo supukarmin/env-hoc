@@ -7,9 +7,9 @@ module.exports = (WrappedComponent, options) => class NextEnvWrapper extends Rea
       env: {},
     };
     if (args && args.req) {
-      newProps.env = getVariables(true, args.req, options);
+      newProps.env = getVariables(args, options);
     } else {
-      newProps.env = getVariables(false, {}, options);
+      newProps.env = getVariables({}, options);
     }
     const newArgs = {
       ...args,
