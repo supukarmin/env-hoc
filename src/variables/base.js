@@ -25,11 +25,11 @@ module.exports = (keys, args, options, variableData) => {
         data.getFromWindow(variables, args, options);
         compareClientToServer(keys[0], {
           client: variables[keys[0]],
-          server: getInitialServerProp(keys[0]) ? getInitialServerProp(keys[0]) : data.defaultValue,
+          server: getInitialServerProp(keys[0], data.defaultValue),
         }, (c, s) => data.compareFunction(c, s), options);
       } else {
         const propsFromServer = {};
-        keys.forEach(key => propsFromServer[key] = getInitialServerProp(key) ? getInitialServerProp(key) : data.defaultValue);
+        keys.forEach(key => propsFromServer[key] = getInitialServerProp(key, data.defaultValue));
         variables = {
           ...variables,
           ...propsFromServer,

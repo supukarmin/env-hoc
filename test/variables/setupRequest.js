@@ -8,6 +8,7 @@ module.exports = (options) => {
       'true-client-ip': options.proxyIpAddress ? options.proxyIpAddress : null,
       'user-agent': global.navigator.userAgent,
       cookie: global.document.cookie,
+      dnt: '0',
     };
     req.connection.remoteAddress = options.ipAddress ? options.ipAddress : null;
   } else if (options.data === 'without') {
@@ -15,6 +16,7 @@ module.exports = (options) => {
     delete req.headers['true-client-ip'];
     delete req.headers['user-agent'];
     delete req.headers['cookie'];
+    delete req.headers['dnt'];
   } else if (options.data === 'bad') {
     req.headers = {
       ...req.headers,
@@ -23,6 +25,7 @@ module.exports = (options) => {
     delete req.headers['true-client-ip'];
     delete req.headers['user-agent'];
     delete req.headers['cookie'];
+    delete req.headers['dnt'];
   } else if (options.data === 'partially-bad') {
     req.headers = {
       ...req.headers,

@@ -10,10 +10,12 @@ module.exports = (options) => {
     ipAddress: null,
     language: null,
     languages: null,
+    doNotTrack: null,
   };
   if (options.data === 'with') {
     document.cookie = 'testProp=testValue';
     document.cookie = 'leet=1337';
+    global.navigator.doNotTrack = '0';
     return {
       userAgent: global.navigator.userAgent,
       cookies: {
@@ -23,6 +25,7 @@ module.exports = (options) => {
       ipAddress: options.ipAddress ? options.ipAddress : null,
       language: global.navigator.language,
       languages: global.navigator.languages,
+      doNotTrack: false,
     };
   } else if (options.data === 'without') {
     return emptyEnv;
@@ -30,6 +33,7 @@ module.exports = (options) => {
     Object.defineProperty(global.navigator, 'userAgent', { value: undefined });
     Object.defineProperty(global.navigator, 'language', { value: undefined });
     Object.defineProperty(global.navigator, 'languages', { value: undefined });
+    Object.defineProperty(global.navigator, 'doNotTrack', { value: undefined });
     Object.defineProperty(global.document, 'cookie', { value: undefined });
     return emptyEnv;
   }
