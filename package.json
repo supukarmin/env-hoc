@@ -1,12 +1,13 @@
 {
   "name": "env-hoc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides an HOC (higher-order component) for Next.js / After.js and populates the component props and the getInitialProps args object with an env property, which gives access to cookies, ipAddress, language(s) and userAgent on server-side and client-side in a standardized way.",
   "main": "lib/index.js",
   "scripts": {
     "build": "webpack",
     "test": "jest",
-    "coverage": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coverage": "jest --coverage",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "author": "Armin Šupuk",
   "license": "MIT",
