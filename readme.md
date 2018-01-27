@@ -4,8 +4,8 @@
 Provides an **universal** [HOC (higher-order component)](https://reactjs.org/docs/higher-order-components.html) for [Next.js](https://github.com/zeit/next.js) / [After.js](https://github.com/jaredpalmer/after.js) and populates the component props and the getInitialProps args object with an env property, which gives ***access to cookies, ipAddress, language(s) and userAgent*** on ***server-side and client-side*** in a standardized way.
 
 * **Save time:** Most important thing: short if-else-blocks, no formatting needed, no old-browser-carrying, etc.
-* **Standardized:** `Accept-Language` && `User-Agent` && `Cookie` headers are parsed and avaiable in the same format as in `window`. (same parsing libraries / functions && reformatting && **backwards compatibility**)
-* **Access to IP address:** IP address is available client-side and there are checked 10+ properties to ensure you always get the best match. Supports enabling / disabling of trusting proxies.
+* **Standardized:** `Accept-Language` && `User-Agent` && `Cookie` headers are parsed and available in the same format as in `window`. (same parsing libraries / functions && reformatting && **backwards compatibility**)
+* **Access to IP address:** IP address is available client-side and there are checked 10+ properties to ensure you always get the best match. Supports enabling/disabling of proxy trusting.
 * **Fully tested:** Tested for strange edge cases, missing HTTP headers or missing window properties.
 * **Some nice to have features:**
   * Console.warns() while process.ENV.NODE_ENV === 'development', if server props !== client props
@@ -98,7 +98,7 @@ this.props: { userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KH
 ```
 
 ## Some hints
-If you want to be a good programmer or support very old browsers, you should still check if a property is avaiable, if some data isn't avaiable, then it will be always for:
+If you want to be a good programmer or support very old browsers, you should still check if a property is available, if some data isn't available, then it will be always for:
 * all properties except cookies: `null`
 * cookies: `{}`
 
