@@ -27,7 +27,7 @@ yarn add env-hoc
 
 # Usage
 
-## with [ES7 decorators](https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841)
+## with [decorators](https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841)
 
 Just import the package and add it as a decorator to every page where you want to have access to the `env` object.
 ```js
