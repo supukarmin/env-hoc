@@ -30,12 +30,19 @@ module.exports = (WrappedComponent, options) => class EnvHocWrapper extends Reac
   /* istanbul ignore next */
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      env: {},
+    };
   }
   /* istanbul ignore next */
   componentWillMount() {
     if (!this.props.env) {
-      this.setState(getVariables({}, options));
+      this.setState({
+        env: getVariables({}, {
+          ...options,
+          debug: false,
+        }),
+      });
     }
   }
   /* istanbul ignore next */
