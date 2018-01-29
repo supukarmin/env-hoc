@@ -1,6 +1,6 @@
 {
   "name": "env-hoc",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Provides an HOC (higher-order component) for Next.js / After.js and populates the component props and the getInitialProps args object with an env property, which gives access to cookies, ipAddress, language(s) and userAgent on server-side and client-side in a standardized way.",
   "main": "lib/index.js",
   "scripts": {
@@ -52,6 +52,7 @@
     "coveralls": "^3.0.0",
     "jest": "^22.1.4",
     "mock-express-request": "^0.2.2",
+    "react": "^16.2.0",
     "uglifyjs-webpack-plugin": "^1.1.6",
     "webpack": "^3.10.0",
     "webpack-node-externals": "^1.6.0"

@@ -1,7 +1,10 @@
 const React = require('react');
 const getVariables = require('../variables');
 
-module.exports = (WrappedComponent, options) => class NextEnvWrapper extends React.Component {
+//@todo add tests for React lifecycle methods
+
+module.exports = (WrappedComponent, options) => class EnvHocWrapper extends React.Component {
+  //for frameworks like Next.js / After.js
   static async getInitialProps(args = {}) {
     let newProps = {
       env: {},
@@ -23,8 +26,20 @@ module.exports = (WrappedComponent, options) => class NextEnvWrapper extends Rea
     }
     return newProps;
   }
+  //constructor && componentWillMount: in case getInitialProps isn't called
+  /* istanbul ignore next */
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  /* istanbul ignore next */
+  componentWillMount() {
+    if (!this.props.env) {
+      this.setState(getVariables({}, options));
+    }
+  }
   /* istanbul ignore next */
   render() {
-    return <WrappedComponent {...this.props} />;
+    return <WrappedComponent {...this.props} {...this.state} />;
   }
 };

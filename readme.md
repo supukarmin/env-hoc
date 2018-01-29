@@ -1,7 +1,7 @@
-# env-hoc (for [Next.js](https://github.com/zeit/next.js) & [After.js](https://github.com/jaredpalmer/after.js))
+# env-hoc (optimized for [Next.js](https://github.com/zeit/next.js) & [After.js](https://github.com/jaredpalmer/after.js))
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/facebook/react/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/env-hoc.svg?style=flat-square)](https://www.npmjs.com/package/env-hoc) [![Coverage Status](https://img.shields.io/coveralls/supukarmin/env-hoc/master.svg?style=flat-square)](https://coveralls.io/github/supukarmin/env-hoc?branch=master) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
 
-Provides an **universal** [HOC (higher-order component)](https://reactjs.org/docs/higher-order-components.html) for [Next.js](https://github.com/zeit/next.js) / [After.js](https://github.com/jaredpalmer/after.js) and populates the component props and the getInitialProps args object with an env property, which gives ***access to cookies, ipAddress, language(s), userAgent and doNotTrack*** on ***server-side and client-side*** in a standardized way.
+Provides an **universal** [HOC (higher-order component)](https://reactjs.org/docs/higher-order-components.html) for React components and populates the component props and the getInitialProps args object with an env property, which gives ***access to cookies, language(s), userAgent and doNotTrack*** in a standardized way. If you are using [Next.js](https://github.com/zeit/next.js) / [After.js](https://github.com/jaredpalmer/after.js) you will get also access to the IP address and benefit heavily from the standardized API on ***server-side and client-side***.
 
 * **Save time:** Most important thing: short if-else-blocks, no formatting needed, no old-browser-carrying, etc.
 * **Standardized:** `Accept-Language` && `User-Agent` && `Cookie` && `DNT` headers are parsed and available in the same format as in `window`. (same parsing libraries / functions && reformatting && **backwards compatibility**)
@@ -36,6 +36,7 @@ import withEnv from 'env-hoc';
 
 @withEnv
 class Environment extends React.Component {
+  //getInitialProps is a Next.js/After.js thing, just ignore it, if you aren't using one of them
   static getInitialProps(args) {
     console.log('args.env:', args.env);
   }
@@ -84,6 +85,7 @@ import React from 'react';
 import withEnv from 'env-hoc';
 
 class Environment extends React.Component {
+  //getInitialProps is a Next.js/After.js thing, just ignore it, if you aren't using one of them
   static getInitialProps(args) {
     console.log('args.env:', args.env);
   }
