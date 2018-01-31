@@ -1,4 +1,3 @@
-const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpackNodeExternals = require('webpack-node-externals');
 const packageJson = require('./package.json');
@@ -32,7 +31,7 @@ const config = {
     ]
   },
   plugins: [
-    new UglifyJsPlugin(),
+    new UglifyJsPlugin({ sourceMap: true }),
   ],
 };
 

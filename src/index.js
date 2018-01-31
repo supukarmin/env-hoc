@@ -1,6 +1,8 @@
 const defaultOptions = require('./api/defaultOptions');
 const getWrapper = require('./api/getWrapper');
 
+//@todo rewrite tests, move them into src, after upgrading babel / jest coverage isn't anymore 100 %
+
 module.exports = (firstFunctionCallParam) => {
   const typeOfFunctionCallParam = typeof firstFunctionCallParam;
   if (typeOfFunctionCallParam === 'function') {
