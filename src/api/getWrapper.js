@@ -47,6 +47,6 @@ module.exports = (WrappedComponent, options) => class EnvHocWrapper extends Reac
   }
   /* istanbul ignore next */
   render() {
-    return <WrappedComponent {...this.props} {...this.state} />;
+    return <WrappedComponent  {...this.state} {...this.props} />;
   }
 };
