@@ -1,6 +1,6 @@
 const React = require('react');
-const getWrapper = require('../../src/api/getWrapper');
-const defaultOptions = require('../../src/api/defaultOptions');
+const getWrapper = require('../getWrapper');
+const defaultOptions = require('../defaultOptions');
 
 class WrappedComponent extends React.Component {
   static async getInitialProps() {

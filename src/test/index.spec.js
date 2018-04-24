@@ -1,4 +1,4 @@
-const index = require('../src/index');
+const index = require('../index');
 
 describe('index', () => {
   describe('returns NextEnvWrapper', () => {

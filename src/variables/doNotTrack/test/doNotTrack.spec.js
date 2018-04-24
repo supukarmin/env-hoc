@@ -1,21 +1,7 @@
 const defaultOptions = require('../../../api/defaultOptions');
 const getDoNotTrack = require('../index');
-
-const createRequest = (header, value) => {
-  const args = {
-    req: {
-      headers: {},
-    },
-  };
-  args.req.headers[header] = value;
-  return args;
-};
-
-const createEnv = (value) => {
-  return {
-    doNotTrack: value,
-  };
-};
+const createRequest = require('../../../../test/utils/createRequest');
+const createEnv = require('../../../../test/utils/setupCreateEnv')('doNotTrack');
 
 describe('returns on sever-side doNotTrack', () => {
 
